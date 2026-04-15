@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sheng Ji 升级</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Name entry (shown first) -->
+<section id="view-name" class="view">
+  <div class="panel">
+    <h1>Sheng Ji 升级</h1>
+    <p class="tagline">Multiplayer Tractor (拖拉机)</p>
+    <label>
+      Your name:
+      <input id="name-input" type="text" maxlength="16" placeholder="Player" />
+    </label>
+    <button id="name-submit">Continue</button>
+  </div>
+</section>
+
+<!-- Lobby: list of rooms + create -->
+<section id="view-lobby" class="view hidden">
+  <div class="panel wide">
+    <h1>Lobby</h1>
+    <div class="lobby-actions">
+      <div class="create-form">
+        <h2>Create room</h2>
+        <label>
+          Players:
+          <select id="create-players">
+            <option value="4">4 players (2 decks)</option>
+            <option value="6">6 players (3 decks)</option>
+          </select>
+        </label>
+        <label>
+          Start level:
+          <select id="create-startlevel">
+            <option value="2" selected>2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">J</option>
+            <option value="12">Q</option>
+            <option value="13">K</option>
+            <option value="14">A</option>
+          </select>
+        </label>
+        <button id="create-submit">Create</button>
+      </div>
+      <div class="room-list">
+        <h2>Open rooms</h2>
+        <ul id="rooms"></ul>
+        <div class="join-form">
+          <input id="join-code" type="text" maxlength="4" placeholder="CODE" />
+          <button id="join-submit">Join by code</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Room (waiting) view -->
+<section id="view-room" class="view hidden">
+  <div class="panel wide">
+    <h1>Room <span id="room-code"></span></h1>
+    <div class="room-meta">
+      <span id="room-meta-players"></span>
+      <span class="ranks-panel">
+        Team A: <b id="room-level-a"></b>
+        &nbsp;&nbsp;
+        Team B: <b id="room-level-b"></b>
+      </span>
+    </div>
+    <ul id="seat-list" class="seat-list"></ul>
+    <div class="room-controls">
+      <button id="start-game">Start game</button>
+      <button id="leave-room">Leave</button>
+    </div>
+  </div>
+</section>
+
+<!-- Game view -->
+<section id="view-game" class="view hidden">
+  <div class="table-area" id="table-area">
+    <div class="center-info" id="center-info">
+      <div class="hud">
+        <div>Trump: <b id="hud-trump">—</b></div>
+        <div>Declarer team: <b id="hud-declarer">—</b></div>
+        <div>Opp points: <b id="hud-points">0</b></div>
+        <div>Phase: <b id="hud-phase">—</b></div>
+      </div>
+      <div class="ranks-panel small">
+        <span>A: <b id="hud-level-a"></b></span>
+        <span>B: <b id="hud-level-b"></b></span>
+      </div>
+    </div>
+    <div class="trick-area" id="trick-area"></div>
+    <div class="seats" id="seats"></div>
+  </div>
+  <div class="hand-area">
+    <div class="hand-fan" id="hand-fan"></div>
+    <div class="actions">
+      <button id="action-declare">Declare trump</button>
+      <button id="action-kitty">Set kitty</button>
+      <button id="action-play">Play</button>
+      <button id="action-newgame" class="hidden">New game</button>
+      <span id="action-hint"></span>
+    </div>
+  </div>
+  <div id="toast"></div>
+</section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/cards.js"></script>
+<script src="js/net.js"></script>
+<script src="js/lobby.js"></script>
+<script src="js/game.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
