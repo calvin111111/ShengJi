@@ -19,16 +19,18 @@ npm start
 # Open http://localhost:3000 in 4 browser tabs
 ```
 
-## Deploy to Railway
+## Deploy to Fly.io
 
-1. Push this branch to GitHub.
-2. Go to [railway.app](https://railway.app) → **New Project** → **Deploy from GitHub repo**.
-3. Select this repository and the branch `claude/sheng-ji-multiplayer-game-kcOeB`.
-4. Railway detects Node via Nixpacks and runs `npm start` automatically.
-5. Click **Generate Domain** to get a public `*.railway.app` URL.
-6. Share the URL with your players — everyone connects to the same server and joins the same lobby.
+1. Install the Fly CLI: `curl -L https://fly.io/install.sh | sh`
+2. Sign up / log in: `fly auth login`
+3. From the repo root, launch the app:
+   ```bash
+   fly launch --copy-config --yes
+   ```
+   This uses the included `fly.toml` and `Dockerfile`. Pick a region close to your players when prompted (or accept the default `iad`).
+4. Once deployed, Fly prints your URL (e.g. `https://shengji.fly.dev`). Share it with your friends.
 
-> **Note**: rooms are in-memory. If the Railway dyno restarts, open rooms are lost. This is acceptable for casual play; a Redis adapter could add persistence if needed.
+> **Note**: the free tier auto-stops the machine after idle. The first connection may take a few seconds to wake it up. Rooms are in-memory — if the machine restarts, open rooms are lost.
 
 ## How to Play
 
